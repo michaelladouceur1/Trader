@@ -1,4 +1,4 @@
-from api import TDAPI
+from api.api import TDAPI
 
 class Allocator:
     def __init__(self,securities,cash):

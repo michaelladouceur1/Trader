@@ -1,10 +1,12 @@
+# THIRD PARTY IMPORTS
 import tdameritrade as td
 from tdameritrade.auth import refresh_token
 import pandas as pd
 from datetime import datetime, timedelta
 import os 
 
-from utils import convert_to_df
+# LOCAL IMPORTS
+from utils.utils import convert_to_df
 
 CURRENT_DATE = datetime.today().strftime('%Y-%m-%d')
 PREV_YEAR = (datetime.today() - timedelta(days=365)).strftime('%Y-%m-%d')
