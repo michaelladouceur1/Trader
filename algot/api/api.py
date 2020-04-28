@@ -50,6 +50,9 @@ class TDAPI:
     def get_options(self, symbol):
         return self.client.optionsDF(symbol)
 
+    def get_transactions(self):
+        return self.client.transactionsDF(self.ACCOUNT_ID)
+
     def get_quote(self, symbol):
         return self.client.quoteDF(symbol)
 
@@ -58,4 +61,4 @@ class TDAPI:
 
 
 # td = TDAPI()
-# print(td.get_positions())
+# print(td.get_history('TSLA'))

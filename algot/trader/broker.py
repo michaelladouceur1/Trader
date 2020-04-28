@@ -1,5 +1,5 @@
 import pandas as pd
-from api import TDAPI
+from api.api import TDAPI
 
 class Broker:
     def __init__(self,cash=None):
@@ -7,7 +7,6 @@ class Broker:
         self.cash = self._set_cash(cash)
         self.positions = self._set_positions()
         self.position_assets = self.positions['asset']
-        print(self.cash)
         
     def _set_cash(self,cash):
         if cash is not None:
