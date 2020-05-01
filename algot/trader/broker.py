@@ -31,3 +31,4 @@ class Broker:
     def sell(self, amount=1):
         pass
 
+# broker = Broker()
