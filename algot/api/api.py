@@ -60,5 +60,5 @@ class TDAPI:
         return self.client.transactions(acc=self.ACCOUNT_ID, type='CASH_IN_OR_CASH_OUT', start_date=start_date, end_date=end_date)
 
 
-# td = TDAPI()
-# print(td.get_history('TSLA'))
+td = TDAPI()
+print(td.get_accounts())
