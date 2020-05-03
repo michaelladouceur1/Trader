@@ -4,12 +4,8 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import dash_table
 # from gui.serve import Serve
-from dashboard_header import Data
-
-
-app = dash.Dash(__name__)
-
-# server = Serve()
+from gui.views.dashboard_header import Data
+from gui.app import app
 
 
 # account
@@ -41,7 +37,7 @@ watchlist = html.Div([
     html.Div(id='watchlist-content'),
     dcc.Interval(
         id='watchlist-interval',
-        interval=10*1000,
+        interval=5*1000,
         n_intervals=0
     )
 ], className='dashboard-module')
@@ -95,6 +91,7 @@ navigation = html.Div([
     )
 ])
 
+
 # dashboard
 
 dashboard = html.Div([
@@ -102,11 +99,3 @@ dashboard = html.Div([
     account,
     movers
 ], id='dashboard')
-
-app.layout = html.Div([
-    dashboard,
-    navigation
-])
-
-if __name__ == '__main__':
-    app.run_server(debug=True)

@@ -1,3 +1,3 @@
-import gui.dashboard as dsh
+import gui.index as dsh
 
-dsh.app.run_server(debug=True)
+# dsh.app.run_server(debug=True)
