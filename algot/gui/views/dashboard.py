@@ -1,8 +1,10 @@
+# Third Party Imports
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output
-import dash_table
+
+# Local Imports
 # from gui.serve import Serve
 from gui.views.dashboard_header import Data
 from gui.app import app
@@ -34,16 +36,11 @@ watchlist = html.Div([
         html.P('High', className='dashboard-table-label'),
         html.P('Low', className='dashboard-table-label')
     ], className='dashboard-table-header'),
-    html.Div(id='watchlist-content'),
-    dcc.Interval(
-        id='watchlist-interval',
-        interval=5*1000,
-        n_intervals=0
-    )
+    html.Div(id='watchlist-content')
 ], className='dashboard-module')
 
 @app.callback(Output('watchlist-content', 'children'),
-            [Input('watchlist-interval', 'n_intervals')])
+            [Input('app-interval', 'n_intervals')])
 def update_watchlist_content(n):
     watchlist_content = []
     dashboard_data = data.update_data()

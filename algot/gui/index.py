@@ -6,9 +6,16 @@ from gui.app import app
 from gui.views import dashboard, body
 
 
+interval_time = 5
+
 # Layout
 
 app.layout = html.Div([
+    dcc.Interval(
+        id='app-interval',
+        interval=interval_time*1000,
+        n_intervals=0
+    ),
     dashboard.dashboard,
     dashboard.navigation,
     dcc.Location(id='url', refresh=False),
