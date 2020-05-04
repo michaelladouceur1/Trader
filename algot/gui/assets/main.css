@@ -3,10 +3,17 @@
 body {
     margin: 0;
     padding: 0;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
     font-family: 'Montserrat', sans-serif;
     cursor: default;
     background-color: black;
     color: blanchedalmond;
+}
+
+#page-content {
+    flex-grow: 1;
 }
 
 #home-graphs {
