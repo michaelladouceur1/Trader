@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;700&display=swap');
 
-body {
+html, body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -13,17 +13,38 @@ body {
 }
 
 #page-content {
+    height: 100%;
+}
+
+#home {
+    display: grid;
+    grid-template-columns: 2fr 1fr 4fr;
+    height: 100%;
+}
+
+#page-content {
     flex-grow: 1;
 }
 
 #home-graphs {
-    width: 300px;
+    width: 25%;
     height: 100%;
 }
 
 #home-chart {
+    /* margin: 10px; */
     width: 100%;
-    height: 600px;
+    height: 700px;
+}
+
+#home-indicators {
+    width: 100%;
+    text-align: center;
+}
+
+#home-table {
+    width: 100%;
+    text-align: center;
 }
 
 #pie-chart .svg-container {
