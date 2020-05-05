@@ -1,21 +1,21 @@
+# Third Party Imports
 import dash_core_components as dcc
 import dash_html_components as html 
 from dash.dependencies import Input, Output 
 
-from gui.app import app 
+# Local Imports
+from gui.app import app
 from gui.views import dashboard, body
-
-
-# interval_time = 5
+from gui import callbacks
 
 # Layout
 
 app.layout = html.Div([
     dcc.Interval(
         id='app-interval',
-        # interval=interval_time*1000,
         n_intervals=0
     ),
+    dcc.Store(id='local-store', storage_type='local'),
     dashboard.dashboard,
     dashboard.navigation,
     dcc.Location(id='url', refresh=False),
@@ -40,5 +40,3 @@ def display_page(pathname):
     else:
         return body.home_layout
     # You could also return a 404 "URL not found" page here
-
-app.run_server(debug=True)

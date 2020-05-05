@@ -1,7 +1,9 @@
+# Third Party Imports
 import dash
 import dash_html_components as html
 import dash_core_components as dcc
 
+# Local Imports
 from gui.views import graphs
 
 
@@ -26,9 +28,10 @@ algorithms_layout = html.Div([
 ])
 
 settings_layout = html.Div([
-    html.H1('Settings'),
+    html.H3('Settings'),
     dcc.Slider(
         id='refresh-slider',
+        updatemode='drag',
         min=5,
         max=60,
         step=None,
@@ -39,8 +42,7 @@ settings_layout = html.Div([
             20: '20 Seconds',
             30: '30 Seconds',
             60: '60 Seconds'
-        },
-        value=20
+        }
     )
 ])
 
