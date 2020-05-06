@@ -7,12 +7,17 @@ import dash_core_components as dcc
 from gui.views import graphs
 
 
-home_graphs = html.Div(id='home-graphs',children=[
-    dcc.Graph(id='home-chart')
-])
-
-home_layout = html.Div([
-    home_graphs
+home_layout = html.Div(id='home', children=[
+    html.Div(id='home-chart-container', children=[
+        dcc.Graph(id='home-chart'),
+        html.Button('1 Day')
+    ]),
+    html.Div(id='home-indicators', children=[
+        html.H3('Sharp Ratio')
+    ]),
+    html.Div(id='home-table', children=[
+        html.H3('Watchlist Table')
+    ])
 ])
 
 securities_layout = html.Div([

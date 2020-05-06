@@ -70,8 +70,8 @@ def update_home_subplot(n):
             'yanchor': 'top'
         },
         margin=dict(
-            l=0,
-            r=0,
+            l=30,
+            r=30,
             b=0,
             t=50
         ),
