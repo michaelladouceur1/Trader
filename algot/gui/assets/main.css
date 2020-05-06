@@ -10,6 +10,7 @@ html, body {
     cursor: default;
     background-color: black;
     color: blanchedalmond;
+    
 }
 
 #page-content {
@@ -49,4 +50,27 @@ html, body {
 
 #pie-chart .svg-container {
     justify-content: center;
+}
+
+/* Settings */
+
+#settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.settings-pair {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.settings-label {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 12px;
+    text-decoration: underline;
+}
+
+#refresh-slider {
+    /* width: 100%; */
 }

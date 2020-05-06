@@ -17,13 +17,9 @@
     text-decoration: underline;
 }
 
-.dashboard-body {
-
-}
-
 .dashboard-label {
     margin: 0;
-    font-size: 10px;
+    font-size: 12px;
     text-decoration: underline;
     text-decoration-style: dashed;
 }
@@ -50,7 +46,7 @@
 
 .dashboard-table-label {
     margin: 0;
-    font-size: 10px;
+    font-size: 12px;
     text-decoration: underline;
 }
 

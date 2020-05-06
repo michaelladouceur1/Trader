@@ -32,23 +32,26 @@ algorithms_layout = html.Div([
     html.H1('Algorithms')
 ])
 
-settings_layout = html.Div([
-    html.H3('Settings'),
-    dcc.Slider(
+settings_layout = html.Div(id='settings', children=[
+    html.Div([
+        html.P('Set Interval for API Calls (Seconds)', className='settings-label'),
+        dcc.Slider(
         id='refresh-slider',
         updatemode='drag',
         min=5,
         max=60,
         step=None,
         marks={
-            5: '5 Seconds',
-            10: '10 Seconds',
-            15: '15 Seconds',
-            20: '20 Seconds',
-            30: '30 Seconds',
-            60: '60 Seconds'
+            5: '5',
+            10: '10',
+            15: '15',
+            20: '20',
+            30: '30',
+            60: '60'
         }
     )
+    ], className='settings-pair'),
+    html.Div([html.H1('Other settings')])
 ])
 
 
