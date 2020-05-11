@@ -5,20 +5,21 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output
 
 # Local Imports
-# from gui.serve import Serve
+from gui.serve import Serve
 from gui.views.dashboard_header import Data
 from gui.app import app
 
+server = Serve()
 
 # account
 
 account = html.Div([
     html.H3('Account Details', className='dashboard-header'),
     html.Span([
-        html.Div([html.P('Cash-on-hand', className='dashboard-label'), html.H5('$48.74', className='dashboard-value')], className='dashboard-pair'),
-        html.Div([html.P('Investment Value', className='dashboard-label'), html.H5('$805.45', className='dashboard-value')], className='dashboard-pair'),
-        html.Div([html.P('Total Return', className='dashboard-label'), html.H5('24.15%', className='dashboard-value')], className='dashboard-pair'),
-        html.Div([html.P('Total Liquid Value', className='dashboard-label'), html.H5('$854.19', className='dashboard-value')], className='dashboard-pair')
+        html.Div([html.P('Cash-on-hand', className='dashboard-label'), html.H5(f'${server.cash}', className='dashboard-value')], className='dashboard-pair'),
+        html.Div([html.P('Investment Value', className='dashboard-label'), html.H5(f'${server.investment_value}', className='dashboard-value')], className='dashboard-pair'),
+        html.Div([html.P('Total Return', className='dashboard-label'), html.H5(f'{server.total_return}%', className='dashboard-value')], className='dashboard-pair'),
+        html.Div([html.P('Total Liquid Value', className='dashboard-label'), html.H5(f'${server.total_liquid_value}', className='dashboard-value')], className='dashboard-pair')
     ], className='dashboard-body')
 ], className='dashboard-module')
 

@@ -1,12 +1,13 @@
 # THIRD PARTY IMPORTS
-import tdameritrade as td
+from tdameritrade import TDClient
 from tdameritrade.auth import refresh_token
 import pandas as pd
 from datetime import datetime, timedelta
 import os 
+import pprint
 
 # LOCAL IMPORTS
-from utils.utils import convert_to_df
+# from utils.utils import convert_to_df
 
 CURRENT_DATE = datetime.today().strftime('%Y-%m-%d')
 PREV_YEAR = (datetime.today() - timedelta(days=365)).strftime('%Y-%m-%d')
@@ -18,7 +19,7 @@ class TDAPI:
         self.API_KEY = self._get_api_key()
         self.ACCESS_TOKEN = refresh_token(self.REFRESH_TOKEN,self.API_KEY)['access_token']
         # print(self.ACCESS_TOKEN)
-        self.client = td.TDClient(access_token=self.ACCESS_TOKEN)
+        self.client = TDClient(access_token=self.ACCESS_TOKEN)
 
     def _get_account_id(self):
         return os.environ.get('TD_BROKER_ID')
@@ -32,12 +33,12 @@ class TDAPI:
     def get_accounts(self, positions=False):
         return self.client.accounts(positions=positions)
 
-    @convert_to_df
+    # @convert_to_df
     def get_positions(self):
         return self.client.accounts(positions=True)[self.ACCOUNT_ID]['securitiesAccount']['positions']
 
     def get_history(self, symbol, **kwargs):
-        return self.client.historyDF(symbol, **kwargs)
+        return self.client.history(symbol, **kwargs)
 
     def get_movers(self, index, direction='up', change_type='percent'):
         return self.client.movers(index, direction, change_type)
@@ -58,7 +59,11 @@ class TDAPI:
 
     def get_deposits_withdrawals(self, start_date=PREV_YEAR, end_date=CURRENT_DATE):
         return self.client.transactions(acc=self.ACCOUNT_ID, type='CASH_IN_OR_CASH_OUT', start_date=start_date, end_date=end_date)
+    
+    def get_trades(self, start_date=PREV_YEAR, end_date=CURRENT_DATE):
+        return self.client.transactions(acc=self.ACCOUNT_ID, type='TRADE', start_date=start_date, end_date=end_date)
 
 
-td = TDAPI()
-print(td.get_accounts())
+# td = TDAPI()
+# pp = pprint.PrettyPrinter(indent=4)
+# pp.pprint(td.get_history('TSLA'))

@@ -1,7 +1,8 @@
+# Third Party Imports
 from sqlalchemy.schema import MetaData
-from sqlalchemy import Table, Column, Integer, DateTime, Float, UniqueConstraint, inspect, insert, select
+from sqlalchemy import Table, Column, Integer, DateTime, Date, Float, UniqueConstraint, inspect, insert, select
 import sqlalchemy as db
-from datetime import datetime
+from datetime import date, timedelta
 
 class DB:
     def __init__(self, database, path=''):
@@ -37,16 +38,18 @@ class SecuritiesDB(DB):
     def create_security_table(self, symbol):
         table = Table(symbol, self.metadata,
                         Column('id', Integer, primary_key = True),
-                        Column('date', Date, unique=True),
+                        Column('datetime', DateTime, unique=True),
                         Column('open', Float),
                         Column('close', Float),
                         Column('high', Float),
-                        Column('low', Float))
+                        Column('low', Float),
+                        Column('volume', Integer))
+
         self.metadata.create_all(self.engine)
 
-    def insert_security_data(self, table):
-        i = insert(table)
-        i = i.values({'date': datetime.now(), 'open': 1203, 'close': 3828, 'high': 3828, 'low': 1})
+    def insert_security_data(self, table, data):
+        i = insert(table).prefix_with('OR IGNORE')
+        i = i.values(data)
         self.connection.execute(i)
 
     # def print_table_data(self, table):
@@ -57,6 +60,15 @@ class SecuritiesDB(DB):
     #     out = result.fetchall()
     #     print(f'\n\n{out}')
 
+data = [
+    {'date': datetime.now(), 'open': 1203, 'close': 3828, 'high': 3828, 'low': 1, 'volume': 140},
+    {'date': datetime.now()-timedelta(days=1), 'open': 1203, 'close': 3828, 'high': 3828, 'low': 1, 'volume': 140},
+    {'date': datetime.now()-timedelta(days=2), 'open': 1203, 'close': 3828, 'low': 1, 'high': 3828, 'volume': 140}
+]
+
 db = SecuritiesDB()
-table = db.get_table('RGLD')
-db.insert_security_data(table)
+db.create_security_table('GOOG')
+table = db.get_table('GOOG')
+db.insert_security_data(table,data)
+# tables = db.get_table_names()
+# print(tables)

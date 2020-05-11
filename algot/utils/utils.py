@@ -7,4 +7,10 @@ def convert_to_df(func):
         return pd.DataFrame(data)
     return wrapper
 
-
+def timestamp_to_iso(func):
+	def wrapper(*args,**kwargs):
+		data = func(*args,**kwargs)
+		if isinstance(data['datetime'][0], np.int64):
+			data['datetime'] = data['datetime'].apply(lambda x: pd.Timestamp(x, unit='ms'))
+		return data
+	return wrapper
