@@ -23,17 +23,19 @@ home_layout = html.Div(id='home', children=[
 securities_layout = html.Div(id='securities', children=[
     html.Div([
         dcc.Slider(
-            id='local-security-slider',
+            id='security-period-slider',
             updatemode='drag',
             min=1,
-            max=15,
+            max=20,
             step=None,
             marks={
                 1: '1',
+                2: '2',
                 3: '3',
                 5: '5',
                 10: '10',
-                15: 'Max'
+                15: '15',
+                20: '20'
             }
         )
     ]),

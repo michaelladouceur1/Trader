@@ -15,7 +15,8 @@ app.layout = html.Div([
         id='app-interval',
         n_intervals=0
     ),
-    dcc.Store(id='local-store', storage_type='local'),
+    dcc.Store(id='securities-local-store', storage_type='local'),
+    dcc.Store(id='settings-local-store', storage_type='local'),
     dashboard.dashboard,
     dashboard.navigation,
     dcc.Location(id='url', refresh=False),
