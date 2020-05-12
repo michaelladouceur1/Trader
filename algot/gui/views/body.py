@@ -71,5 +71,3 @@ settings_layout = html.Div(id='settings', children=[
     ], className='settings-pair')
 ])
 
-
-https://github.com/michaelladouceur1/Trader.git
