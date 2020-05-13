@@ -1,6 +1,12 @@
+# Third Party Imports
+import pprint
+from datetime import datetime
+
 # Local Imports
 from api.api import TDAPI
 from utils.utils import timestamp_to_iso
+from db.db import SecuritiesDB
+
 
 class Serve:
     def __init__(self):
@@ -14,7 +20,6 @@ class Serve:
         self.total_liquid_value = self.get_total_liquid_value()
 
     def get_cash(self):
-        print(f'get_cash called...')
         return self.accounts[self.tdapi.ACCOUNT_ID]['securitiesAccount']['currentBalances']['cashAvailableForTrading']
 
     def get_investement_value(self):
@@ -32,6 +37,19 @@ class Serve:
 
     def get_total_liquid_value(self):
         return self.cash + self.investment_value
+
+    def save_security_local(self, symbols, period):
+        data = {}
+        for s in symbols:
+            data[s] = self.tdapi.get_history(s, periodType='year', period=period, frequencyType='daily', frequency=1)['candles']
+        data = timestamp_to_iso(data)
+        db = SecuritiesDB()
+        for dd in data.keys():
+            db.create_security_table(dd)
+            table = db.get_table(dd)
+            db.insert_security_data(table, data[dd])
+
+
 
     # def get_history(self):
     #     self.history

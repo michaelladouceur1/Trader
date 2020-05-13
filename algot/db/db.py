@@ -5,7 +5,7 @@ import sqlalchemy as db
 from datetime import date, timedelta
 
 class DB:
-    def __init__(self, database, path=''):
+    def __init__(self, database, path='/home/michael/Documents/Coding/Finance/Trader/algot/db/'):
         self.database = database
         self.path = path
         self._create_engine()
@@ -60,15 +60,15 @@ class SecuritiesDB(DB):
     #     out = result.fetchall()
     #     print(f'\n\n{out}')
 
-data = [
-    {'date': datetime.now(), 'open': 1203, 'close': 3828, 'high': 3828, 'low': 1, 'volume': 140},
-    {'date': datetime.now()-timedelta(days=1), 'open': 1203, 'close': 3828, 'high': 3828, 'low': 1, 'volume': 140},
-    {'date': datetime.now()-timedelta(days=2), 'open': 1203, 'close': 3828, 'low': 1, 'high': 3828, 'volume': 140}
-]
+# data = [
+#     {'date': datetime.now(), 'open': 1203, 'close': 3828, 'high': 3828, 'low': 1, 'volume': 140},
+#     {'date': datetime.now()-timedelta(days=1), 'open': 1203, 'close': 3828, 'high': 3828, 'low': 1, 'volume': 140},
+#     {'date': datetime.now()-timedelta(days=2), 'open': 1203, 'close': 3828, 'low': 1, 'high': 3828, 'volume': 140}
+# ]
 
-db = SecuritiesDB()
-db.create_security_table('GOOG')
-table = db.get_table('GOOG')
-db.insert_security_data(table,data)
+# db = SecuritiesDB()
+# db.create_security_table('GOOG')
+# table = db.get_table('GOOG')
+# db.insert_security_data(table,data)
 # tables = db.get_table_names()
 # print(tables)
