@@ -64,6 +64,6 @@ class TDAPI:
         return self.client.transactions(acc=self.ACCOUNT_ID, type='TRADE', start_date=start_date, end_date=end_date)
 
 
-td = TDAPI()
-pp = pprint.PrettyPrinter(indent=4)
-pp.pprint(td.get_history('TSLA'))
+# td = TDAPI()
+# pp = pprint.PrettyPrinter(indent=4)
+# pp.pprint(td.get_history('TSLA'))

@@ -1,34 +1,50 @@
-import pandas as pd
-from api.api import TDAPI
-
 class Broker:
-    def __init__(self,cash=None):
-        self.tdapi = TDAPI()
-        self.cash = self._set_cash(cash)
-        self.positions = self._set_positions()
-        self.position_assets = self.positions['asset']
-        
-    def _set_cash(self,cash):
-        if cash is not None:
-            return cash
-        else:
-            return self.tdapi.get_accounts()[self.tdapi.ACCOUNT_ID]['securitiesAccount']['currentBalances']['cashAvailableForTrading']
+    def __init__(self):
+        pass 
 
-    def _set_positions(self):
-        positions = self.tdapi.get_positions()
-        positions['asset'] = [i['symbol'] for i in positions['instrument']]
-        positions['assetType'] = [i['assetType'] for i in positions['instrument']]
-        positions['cusip'] = [i['cusip'] for i in positions['instrument']]
-        positions.drop(columns=['instrument'],inplace=True)
-        return positions
+    def add_account(self, account=None):
+        self.account = account
 
-    def get_postions(self):
-        return self.tdapi.get_positions()
+    def add_cash(self, cash=None):
+        self.cash = cash
 
-    def buy(self, amount=1):
+    def add_positions(self, positions=[]):
+        self.positions = positions
+
+    def add_strategy(self, strategy):
+        self.strategy = strategy
+
+    def add_data(self, data):
+        self.data = data 
+
+    def _check_cash(self):
         pass
 
-    def sell(self, amount=1):
+    def _log_trade_price(self):
         pass
 
-# broker = Broker()
+    def _buy(self):
+        pass
+
+    def _sell(self):
+        pass
+
+    def bt(self):
+        symbols = [i for i in self.data.keys()]
+        for i, d in enumerate(self.data.values()):
+            print(d)
+
+data = [{'FNV': [
+    (1564.1, 1654.15, 4653.45),
+    (1564.1, 1654.15, 4653.45),
+    (1564.1, 1654.15, 4653.45),
+]},
+{'GOOG': [
+    (1564.1, 1654.15, 4653.45),
+    (1564.1, 1654.15, 4653.45),
+    (1564.1, 1654.15, 4653.45),
+]}]
+
+broker = Broker()
+broker.add_data(data)
+broker.bt()

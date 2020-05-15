@@ -23,7 +23,7 @@ class Serve:
         return self.accounts[self.tdapi.ACCOUNT_ID]['securitiesAccount']['currentBalances']['cashAvailableForTrading']
 
     def get_investement_value(self):
-        return self.accounts[self.tdapi.ACCOUNT_ID]['securitiesAccount']['currentBalances']['longMarketValue']
+        return round(self.accounts[self.tdapi.ACCOUNT_ID]['securitiesAccount']['currentBalances']['longMarketValue'], 2)
 
     def get_total_return(self):
         cost, mkt = 0, 0
@@ -36,7 +36,7 @@ class Serve:
         return total
 
     def get_total_liquid_value(self):
-        return self.cash + self.investment_value
+        return round(self.cash + self.investment_value, 2)
 
     def save_security_local(self, symbols, period):
         data = {}
@@ -47,7 +47,7 @@ class Serve:
         for dd in data.keys():
             db.create_security_table(dd)
             table = db.get_table(dd)
-            db.insert_security_data(table, data[dd])
+            db.insert_data(table, data[dd])
 
 
 
