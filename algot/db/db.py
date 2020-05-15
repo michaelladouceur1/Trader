@@ -3,15 +3,25 @@ from sqlalchemy.schema import MetaData
 from sqlalchemy import Table, Column, Integer, DateTime, Date, Float, UniqueConstraint, inspect, insert, select
 from sqlalchemy.orm import sessionmaker
 import sqlalchemy as db
-from datetime import date, timedelta
-import time
+from datetime import date, timedelta, datetime
+import sys
+import pprint
 
 class DB:
-    def __init__(self, database, path='/home/michael/Documents/Coding/Finance/Trader/algot/db/'):
+    def __init__(self, database, path=None):
         self.database = database
-        self.path = path
+        self.path = self._create_path(path)
         self._create_engine()
         self._connect_engine()
+
+    def _create_path(self, path):
+        if path is None:
+            os = {
+                'linux': '/home/michael/Documents/Coding/Finance/Trader/algot/db/',
+                'win32': 'C:\\Users\\mladouceur\\Python\\Trader\\algot\\db\\'
+            }
+            return os[sys.platform]
+        return path
 
     def _create_engine(self):
         self.engine = db.create_engine(f'sqlite:///{self.path}{self.database}.db', echo=False)
@@ -36,8 +46,6 @@ class DB:
         Session = sessionmaker(bind=self.engine)
         session = Session()
 
-        cols = columns
-
         if tables is not None:
             _tables = [self.get_table(table) for table in tables]
         else:
@@ -46,7 +54,6 @@ class DB:
 
         data = []
         for i, table in enumerate(_tables):
-            print([column.key for column in table.columns])
             if tables is not None:
                 sym = tables[i]
             else:
@@ -54,17 +61,19 @@ class DB:
 
             if columns is not None:
                 _columns = getattr(table, '_columns')
+                cols = columns
                 data.append({
                     'symbol': sym,
                     'data': session.query(*[getattr(_columns, i) for i in columns]).all()
                 }) 
             else:
+                cols = [column.key for column in table.columns]
                 data.append({
                     'symbol': sym,
                     'data': session.query(table).all()
                 })
                 
-        # data = self._label_query(data, columns)
+        data = self._label_query(data, cols)
 
         return data
 
@@ -105,20 +114,23 @@ class SecuritiesDB(DB):
 
         self.metadata.create_all(self.engine)
 
-# data = [
-#     {'date': datetime.now(), 'open': 1203, 'close': 3828, 'high': 3828, 'low': 1, 'volume': 140},
-#     {'date': datetime.now()-timedelta(days=1), 'open': 1203, 'close': 3828, 'high': 3828, 'low': 1, 'volume': 140},
-#     {'date': datetime.now()-timedelta(days=2), 'open': 1203, 'close': 3828, 'low': 1, 'high': 3828, 'volume': 140}
-# ]
-
-db = SecuritiesDB()
-data = db.query_tables(['FNV'], columns=['close', 'open'])
+# db = SecuritiesDB()
+# data = db.query_tables(['FNV'], columns=['close', 'open'])
 # print(data)
 # print(data.keys())
 
-# db = SecuritiesDB()
-# db.create_security_table('GOOG')
-# table = db.get_table('GOOG')
-# db.insert_security_data(table,data)
-# tables = db.get_table_names()
-# print(tables)
+data = [
+    {'datetime': datetime.now(), 'open': 1203, 'close': 3828, 'high': 3828, 'low': 1, 'volume': 140},
+    {'datetime': datetime.now()-timedelta(days=1), 'open': 1203, 'close': 3828, 'high': 3828, 'low': 1, 'volume': 140},
+    {'datetime': datetime.now()-timedelta(days=2), 'open': 1203, 'close': 3828, 'low': 1, 'high': 3828, 'volume': 140}
+]
+
+db = SecuritiesDB()
+db.create_security_table('FNV')
+table = db.get_table('FNV')
+db.insert_data(table, data)
+data = db.query_tables()
+pp = pprint.PrettyPrinter(indent=2)
+pp.pprint(data)
+
+# print((datetime.now() - timedelta(days=1)).isoformat())
