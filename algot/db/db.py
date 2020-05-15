@@ -46,6 +46,7 @@ class DB:
 
         data = []
         for i, table in enumerate(_tables):
+            print([column.key for column in table.columns])
             if tables is not None:
                 sym = tables[i]
             else:
@@ -63,7 +64,7 @@ class DB:
                     'data': session.query(table).all()
                 })
                 
-        data = self._label_query(data, columns)
+        # data = self._label_query(data, columns)
 
         return data
 
@@ -111,8 +112,8 @@ class SecuritiesDB(DB):
 # ]
 
 db = SecuritiesDB()
-data = db.query_tables(['FNV'])
-print(data)
+data = db.query_tables(['FNV'], columns=['close', 'open'])
+# print(data)
 # print(data.keys())
 
 # db = SecuritiesDB()
